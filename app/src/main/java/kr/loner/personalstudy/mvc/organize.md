@@ -1,6 +1,6 @@
 # 공부 참고 문서 on 2023-07-02
 [모질라의 mvc](https://developer.mozilla.org/ko/docs/Glossary/MVC)
-
+[김코딩의 mvc](https://blog.naver.com/jukrang/221597914483)
 
 ### 개인 궁금증 & 답변
 ###### Q.  
