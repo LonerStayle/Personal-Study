@@ -43,7 +43,7 @@ private class ViewModel(private val repository: MvvmRepository) {
 private class MvvmView(private val viewModel: ViewModel) {
     val job = CoroutineScope(Dispatchers.Main)
 
-    /* DataBinding 라이브러리를 받지 못했으므로 사용*/
+    /* DataBinding 라이브러리를 사용하지 않으므로 옵저버 패턴 사용*/
     fun observeData() {
         job.launch {
             viewModel.uiState.collectLatest { state ->
