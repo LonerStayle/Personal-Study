@@ -7,7 +7,7 @@ package kr.loner.personalstudy.mvp
 - View와 Model은 서로에 대해 알지 못하고, Presenter가 중재 역할을 수행합니다.
 - View와 Model 간의 결합이 약해지므로 테스트 용이성과 유지 보수성이 향상될 수 있습니다.
  */
-fun main() {
+fun mvpPassiveViewTest() {
     val view: PsView = PsViewImpl()
     val presenter = PsPresenter()
     presenter.attachView(view)

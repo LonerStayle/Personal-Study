@@ -1,5 +1,5 @@
 # 공부 참고 문서 on 2023-07-02
-[안드로이드 메모리 개요](https://github.com/pachuho/Development-English-study) 
+[안드로이드 메모리 개요](https://developer.android.com/topic/performance/memory-overview?hl=ko) 
 
 ### 개인 궁금증 & 답변
 ###### Q.    

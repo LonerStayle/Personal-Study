@@ -11,9 +11,9 @@ import kotlin.properties.Delegates
 - View와 Presenter는 서로에 대해 알고 있으며, 협력하여 UI 처리 및 비즈니스 로직을 수행합니다.
 - View는 Model 로부터 notify를 받습니다.
  */
-fun main() {
+fun mvpScvTest() {
     val view: ScView = ScViewImpl()
-    val model = ScRepository { view.setUiData(it) }
+    val model = ScRepository { view.setDataUi(it) }
     val presenter = ScPresenter(view, model)
 
     view.setPresenter(presenter)
@@ -25,7 +25,7 @@ fun main() {
 private interface ScView {
     val uiData: String
     fun setPresenter(presenter: ScPresenter)
-    fun setUiData(uiData: String)
+    fun setDataUi(uiData: String)
     fun showUiData()
     fun showProcessedData(msg: String)
 }
@@ -40,7 +40,7 @@ private class ScViewImpl() : ScView {
         this.presenter = presenter
     }
 
-    override fun setUiData(uiData: String) {
+    override fun setDataUi(uiData: String) {
         this.uiData = uiData
     }
 
@@ -68,7 +68,7 @@ private class ScPresenter(private val view: ScView, private val model: ScReposit
 
 // Model 클래스
 private class ScRepository(private val updateDataObserve: (String) -> Unit) {
-    private var data by Delegates.observable("") { _, _, value ->
+    private var observeData by Delegates.observable("") { _, _, value ->
         updateDataObserve(value)
     }
 
@@ -77,10 +77,10 @@ private class ScRepository(private val updateDataObserve: (String) -> Unit) {
     }
 
     fun setData(data: String) {
-        this.data = data
+        this.observeData = data
     }
 
-    fun getData() = data
+    fun getData() = observeData
 
 
 }

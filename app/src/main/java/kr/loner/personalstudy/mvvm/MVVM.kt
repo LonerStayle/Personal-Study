@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
-fun main() {
+fun mvvmTest() {
     val repository = MvvmRepository()
     val viewModel = ViewModel(repository)
     val view = MvvmView(viewModel)
     view.observeData()
 
-    /**View 가 필요 없을 때*/
-    view.cancelJob()
+    /**View 가 필요 없을 때 아래 함수를 사용한다.*/
+//    view.cancelJob()
 }
 
 private class MvvmRepository {
