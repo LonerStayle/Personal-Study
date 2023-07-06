@@ -10,7 +10,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import kr.loner.personalstudy.handler_looper.HandlerPostBtn
+import kr.loner.personalstudy.handler_looper.WorkerHandlerSendMsgBtn
 import kr.loner.personalstudy.handler_looper.HandlerSendMsgBtn
 import kr.loner.personalstudy.multi_thread.MutexTestBtn
 import kr.loner.personalstudy.multi_thread.SemaphoreTestBtn
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                         MutexTestBtn()
                         SemaphoreTestBtn()
                         HandlerSendMsgBtn()
-                        HandlerPostBtn()
+                        WorkerHandlerSendMsgBtn()
                     }
                 }
             }

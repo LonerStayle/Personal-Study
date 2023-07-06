@@ -1,4 +1,4 @@
-# 공부 참고 문서 on 2023-07-03
+# 공부 참고 문서 
 [태환님의 mvvm 설명 인트로](https://thdev.tech/android/2022/12/12/Android-Follow-MVVM-Intro/)
 [pluu님의 드로이드 카기 2018 mvvm 정리](https://pluu.github.io/blog/android/droidkaigi/2018/06/24/droidkaigi-mvvm/)
 [역사로 보는 mvvm](https://mixedcode.com/Article/Index?aidx=1180)

@@ -36,7 +36,7 @@ fun HandlerSendMsgBtn() {
 
 }
 @Composable
-fun HandlerPostBtn() {
+fun WorkerHandlerSendMsgBtn() {
     Button(modifier = Modifier.padding(top = 8.dp), onClick = {
         Thread{
             /**prepare() 를 하지 않으면 myLooper가 Null임 */

@@ -1,4 +1,4 @@
-# 공부 참고 문서 on 2023-07-02
+# 공부 참고 문서 
 [루퍼_핸들러_기초 개념](https://velog.io/@haero_kim/Android-Looper-Handler-%EA%B8%B0%EC%B4%88-%EA%B0%9C%EB%85%90) 
 
 ### 개인 궁금증 & 답변
