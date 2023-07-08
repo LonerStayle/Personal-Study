@@ -8,18 +8,31 @@
 [태환님의 레트로핏2과 코루틴](https://thdev.tech/kotlin/2021/01/12/Retrofit-Coroutines/)
 [명표님의 Coroutine 정리](https://myungpyo.medium.com/reading-coroutine-official-guide-thoroughly-part-0-20176d431e9d)
 
-###### 내가 몰랐던 부분 정리
+###### 복습 필요한 부분 정리
 
 - Coroutine Context 에서 KEY 는 Element 를 제네릭 으로 가짐
 - Element 는 Coroutine Context 를 상속
 - Element 는 CoroutineId, CoroutineName, CoroutineDispatcher, ContinuationInterceptor,
   CoroutineExceptionHandler 등등
-- Coroutine Context 의 plus 함수는 내부 에서 fold 와 Combined Context 를 사용 한다.
-- Coroutine Scope 에서 스코프 빌더(coroutineScope, withContext) , 코루틴 빌더(launch, async) 는 CoroutineScope의
-  확장 함수로 정의됨
-- Coroutine Scope 는 Coroutine Context 를 하나만 가지고 있어서 구현을 해줘야 함 (기본적으로 디스패처 를 구현해서 쓰게 됨 )
-- Global Scope 의 context 는 싱글턴 (Kotlin Object) 로 구현 되어 있는 EmptyCoroutineContext 를 사용 하는데 이 context 는
-  어떤 생명주기에 바인딩 된 Job이 없기 때문에 전역 속성을 갖는다.
+- Coroutine Context 의 plus 함수는 내부 에서 fold 와 Combined Context 를 사용 한다.   
+- Coroutine Scope 에서 스코프 빌더(coroutineScope, withContext) , 코루틴 빌더(launch, async) 는 CoroutineScope의   
+  확장 함수로 정의됨   
+- Coroutine Scope 는 Coroutine Context 를 하나만 가지고 있어서 구현을 해줘야 함 (기본적으로 디스패처 를 구현해서 쓰게 됨 )   
+- Global Scope 의 context 는 싱글턴 (Kotlin Object) 로 구현 되어 있는 EmptyCoroutineContext 를 사용 하는데 이 context 는   
+  어떤 생명주기에 바인딩 된 Job이 없기 때문에 전역 속성을 갖는다.   
+- JVM 에서 제공하는 Coroutine Dispatcher 는 4가지가 있다. Main,IO,Default, Unconfined    
+- Unconfined 는 Continuation 에서 바로 suspend -> Resume 되는 스레드에서 바로 실행   
+- Main 은 메인 스레드에서 Event Loop 를 이용해 코루틴의 실행을 스케줄링 함    
+- IO 는 LimitingDispatcher 로 래핑해서 병렬 실행 수 에 따라 CoroutineScheduler 에서 실행 할지 대기 할지 결정   
+- Default 는 Coroutine Scheduler 에 요청하고자 하는 Task로 바로 래핑되어서 사용함 (TaskContext 의 afterTask() 가 비어있음)   
+- Coroutine Scheduler 는 Java 의 Executor 를 구현해서 만든 것인데, Dispatcher 로 생성된 Task 는 Scheduler 의 Worker 들에 의해 관리 된다.    
+- 위 Worker 는 Java 의 기본 Thread 임   
+- suspend 는 언제든지 취소가 가능하며 취소가 발생하면 CancellationException 이 발생한다.   
+- withContext 는 3가지 경우를 분기처리 한다.
+  1. 인자로 받은 coroutine Context 가 동일할 경우 바로 Scope Coroutine 을 만들어 실행
+  2. coroutine Context 가 다르지만 Dispatcher 가 동일할 경우 UndispatchedCoroutine 를 만들어서 새로운 컨텍스트 안에서 실행
+  3. 그외의 경우 DispatchedCoroutine 을 생성하여 실행합니다.
+     
 -
 
 ### 개인 궁금증 & 답변
