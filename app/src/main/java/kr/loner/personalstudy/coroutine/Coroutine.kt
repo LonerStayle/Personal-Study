@@ -1,56 +1,44 @@
 package kr.loner.personalstudy.coroutine
 
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
-import android.provider.Settings.Global
-import android.widget.Toast
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import android.widget.Button
+
 import kotlinx.coroutines.*
-import kr.loner.personalstudy.handler_looper.MockHandler
+import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import org.w3c.dom.Text
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.ContinuationInterceptor
 import kotlin.coroutines.CoroutineContext
 
-
-@Composable
-fun CoroutineTestBtn(){
-    Button(modifier = Modifier.padding(top = 8.dp), onClick = {
-
-
-    }) {
-        Text(text = "메인 핸들러 테스트")
-    }
-}
-
 /**Delay 내부 코드 보기용*/
-suspend fun delayTest(){
+suspend fun delayTest() {
     delay(1000)
 }
 
 /**Scope 내부 코드 보기용*/
-private fun globalScope() = runBlocking{
+private fun globalScope() = runBlocking {
     //CoroutineScope 를 상속 받고 EmptyCoroutineContext 를 기본적으로 가진다.
     GlobalScope
     //ContextScope 를 생성 한다. 생성 할때 파라미터로 CoroutineContext.get 에서 Job이 있을 경우 context, 없을 경우 context + Job() 으로 context를 넘긴다.
-    CoroutineScope(Dispatchers.IO)
-
-
-    GlobalScope.launch() {  }
-    GlobalScope.async {  }
+    val job = CoroutineScope(Dispatchers.IO)
+    job.cancel()
+    CoroutineScope(Dispatchers.Main).launch{
+        for (i in 1..10){
+            println(i.toString())
+        }
+    }
+    println("여기 로그 찍히니?")
+    channelProduceTest().consumeEach { println(it) }
+    GlobalScope.launch() { }
+    GlobalScope.async { }
+MutableSharedFlow<String>()
 //    kotlinx.coroutines.scheduling.CoroutineScheduler
-    withContext(this.coroutineContext){}
+    withContext(this.coroutineContext) {}
 
 }
 
 
-class CHE(override val key: CoroutineContext.Key<*>) :CoroutineExceptionHandler{
+class CEH(override val key: CoroutineContext.Key<*>) : CoroutineExceptionHandler {
     override fun handleException(context: CoroutineContext, exception: Throwable) {
 
     }
@@ -58,7 +46,7 @@ class CHE(override val key: CoroutineContext.Key<*>) :CoroutineExceptionHandler{
 }
 
 
-class CI(override val key: CoroutineContext.Key<*>): ContinuationInterceptor{
+class CI(override val key: CoroutineContext.Key<*>) : ContinuationInterceptor {
 
     override fun <T> interceptContinuation(continuation: Continuation<T>): Continuation<T> {
         TODO("Not yet implemented")
@@ -70,3 +58,44 @@ class CI(override val key: CoroutineContext.Key<*>): ContinuationInterceptor{
 }
 
 
+suspend fun asyncTest(): Int =
+    coroutineScope {
+        val deferredOne: Deferred<Int> = async { 1 }
+        val deferredTwo = async { 2 }
+        deferredOne.await()
+        deferredTwo.await()
+    }
+
+suspend fun asyncTestList(): Int =
+    coroutineScope {
+        val deferredOne: Deferred<Int> = async { 1 }
+        val deferredTwo = async { 2 }
+        val testList = listOf(deferredOne, deferredTwo)
+        testList.awaitAll().sum()
+    }
+
+
+suspend fun fetchLatestNews(): String {
+    return withContext(Dispatchers.IO) {
+        "asd"
+    }
+}
+
+
+suspend fun channelTest(){
+    val channel:Channel<Int> = Channel()
+    for(i in 1..5) channel.send(i)
+
+
+
+    channel.consume {
+        println(receive())
+         }
+
+
+}
+
+@ExperimentalCoroutinesApi
+fun CoroutineScope.channelProduceTest(): ReceiveChannel<Int> = produce {
+    repeat(5){ send(it)}
+}
