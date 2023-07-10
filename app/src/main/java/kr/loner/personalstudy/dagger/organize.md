@@ -1,24 +1,12 @@
 # 공부 참고 문서
 [대거_안드 공식 문서](https://developer.android.com/training/dependency-injection/dagger-basics?hl=ko)
+[대거2_개인 블로그](https://brunch.co.kr/@oemilk/73)
+[pluu님의 드로이드 카기2019 정리 _대거사용](http://pluu.github.io/blog/android/droidkaigi/2020/01/27/droidkaigi-multimodule-with-dagger/)
+[배민 대거 적용기](https://techblog.woowahan.com/2639/)
+[대거_미디엄](https://medium.com/@jason_kim/tasting-dagger-2-on-android-%EB%B2%88%EC%97%AD-632e727a7998)
+[대거 내부 동작01](https://proandroiddev.com/deep-dive-into-dagger-generated-code-part-1-58f3cb9563de)
+[대거 내부 동작02](https://proandroiddev.com/deep-dive-into-dagger-generated-code-part-2-13de4781b49d)
+[대거 내부 동작03](https://proandroiddev.com/deep-dive-into-dagger-generated-code-part-3-2d1593ad154)
 
 
 ###### 복습 필요한 부분 정리   
-- 의존성 주입은 다음 3가지의 이점을 갖는다.   
-1. 클래스 재사용 가능 및 의존성 분리
-2. 리팩터링 편의성 
-3. 테스트 편의성 (외부에서 다양한 구현체 객체 주입으로 테스트 가능)
-4. 추가로 Ioc 개념이 가능해짐   
-
-- Di 라이브러리를 쓰면 좋은 이유
-1. 수동으로 의존을 주입하다 보면(set 함수, 생성자 인자 등등.. ) 의존성을 주입하기 위한 보일러 플레이트 코드가 발생
-2. 의존성 주입을 별도의 컨테이너가 관리 해서 관심사 분리 시킬 수 있음 
-3. 의존성 주입 객체의 생명 주기를 별도로 관리 해줌     
-
-- Di 라이브러리를 안쓰면 서비스 로케이터 패턴을 쓸 수 있음
-- Di 라이브러리는 런타임 시 의존 항목을 연결하는 리플렉션 기반 솔루션, 컴파일 시 의존 항목을 연결하는 코드를 생성하는 정적 솔루션 두가지로 나뉨   
-- 모든 클래스와 서로의 종속성을 표시하면 애플리케이션 그래프라고 함   
-
-- 안드로이드 권장 아키텍처에서 의존성 주입을 수동으로 하면?
-1. activity: onCreate() 에 의존성 주입을 위한 보일러플레이트 코드가 많아짐   
-2. activity: onCreate() 에 의존성 주입을 Retrofit2 <- dataSource <- repository <- useCase <- VM  순서대로 선언해야함      
-3. 객체를 재사용하기가 어려움 -> 객체 반복 생성을 막기 위해 싱글톤 패턴을 쓰게 되면 테스트성이 떨어지기도 함  
