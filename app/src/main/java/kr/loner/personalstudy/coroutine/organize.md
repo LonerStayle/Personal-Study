@@ -54,11 +54,13 @@
 - State Flow 에 WhileSubscribed(5000) 는 수집이 중단되었을 때 5초동안 수집을 하는지 확인하고 수집 하지 않으면 flow 의 수집을 취소 한다. 수집하면 flow 수집을 유지 한다.    
 - android view 에서 repeatOnLifecycle(state), flowWithLifecycle(lifecycle,state) 을 사용해야 백그라운드에서 flow 수집하는 실수를 방지할 수 있다.   
 - lifecycleScope.launch 만 사용해서 collect 를 하게 된다면 백그라운드에서 flow 수집이 될수 있다.   
+-  launchWhenStarted 는 suspend 를 잠들었다가 깨우는 반면에, repeatOnLifecycle 은 타겟 state을 벗어나면 재시작한다.    
 
 - Channel 은 Blocking Queue 와 흡사하다. put 이 send, take 는 receive 가 되었다. 하지만 Channel 은 스스로 큐를 닫을 수도 있다.
 - Channel 는 produce 와 consume 패턴으로 되어 있다. 
 - produce 확장함수를 통해서 ReceiveChannel<T> 로 채널을 만들 수 있다. 
 - produce 를 produce 에게 넘겨서 consume 가공으로 계속 데이터를 필터링 해서 넘기는 것을 파이프 라인이라고 한다. 
+
 
 
 ###### 안드로이드 코루틴 권장 방식    
