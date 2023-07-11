@@ -32,6 +32,7 @@ private fun globalScope() = runBlocking {
     GlobalScope.launch() { }
     GlobalScope.async { }
 MutableSharedFlow<String>()
+
 //    kotlinx.coroutines.scheduling.CoroutineScheduler
     withContext(this.coroutineContext) {}
 
