@@ -11,3 +11,8 @@
 
    
 ###### 복습 필요한 부분 정리   
+- Component Builder 는 첫 init 시에 외부 인자로 패러미터를 전달 받는다.   
+- Component Builder 의 메서드는 패러미터를 각각 하나씩 밖에 가질 수가 없다.   
+- Component Factory 는 하나의 메서드의 여러인자를 넣을 수 있다. 하지만 create() 메서드 외에는 아무 메서드를 가질 수 없다.   
+- MultiBinding 은 set,map, key 지정, 컬렉션 단위 insert 를 지원 한다.   
+- @Binds 는 함수(TImpl):T 로 되어 있다. TImpl 생성자에 파라미터를 넘겨야할 경우 @Binds 를 사용할 수 없다.
