@@ -9,6 +9,7 @@
 [명표님의 Coroutine 정리](https://myungpyo.medium.com/reading-coroutine-official-guide-thoroughly-part-0-20176d431e9d)
 [홍범님의 Android Dev 2021 Summit Flow 정리](https://medium.com/hongbeomi-dev/%EC%A0%95%EB%A6%AC-%EC%BD%94%ED%8B%80%EB%A6%B0-flow-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-android-dev-summit-2021-3606429f3c5f)
 [코루틴의 취소_안드로이드 공식 블로그](https://medium.com/androiddevelopers/cancellation-in-coroutines-aa6b90163629)
+[날고 싶은 개발자님 블로그](https://jaejong.tistory.com/65)
 
 ###### 복습 필요한 부분 정리
 
@@ -43,7 +44,8 @@
 - async 와 launch 의 예외 처리가 다르다. async 는 block 에 예외가 발생하면 await 호출부에도 예외가 전파 되고, launch 는 block 내에서만 예외가 발생한다.   
 - 위와 관련된 문제로 await() 호출부 없이 async 만 사용해서 예외가 발생하면 android 로깅 시스템 때문에 logcat 에 예외가 찍히지 않는다.    
 - scope 도 cancel() 함수가 있다. 모든 자식의 코루틴을 취소한다.   
-- 각각 IO 디스패쳐를 사용하는 async 를 만들어서 결과값을 내면 비동기로 작업속도 최적화도 가능하다. (a = async(IO) b = async(IO) -> println("$a.await() 와 $b.await()"))   
+- 각각 IO 디스패쳐를 사용하는 async 를 만들어서 결과값을 내면 비동기로 작업속도 최적화도 가능하다. (a = async(IO) b = async(IO) -> println("$a.await() 와 $b.await()"))
+(코루틴 프레임워크에서는 순차 실행이 기본이기 때문에 동시 수행은 항상 명시적 이어야 합니다.)   
 - Deferred 는 Job을 상속받아 만들어졌다.   
 - Coroutine Context 는 Job, Coroutine Dispatcher , Coroutine Name , Coroutine Exception Handler 등등의 동작을 정의 한다.
 
@@ -61,6 +63,8 @@
 - produce 확장함수를 통해서 ReceiveChannel<T> 로 채널을 만들 수 있다. 
 - produce 를 produce 에게 넘겨서 consume 가공으로 계속 데이터를 필터링 해서 넘기는 것을 파이프 라인이라고 한다. 
 
+- Channel 함수들 -> close() 는 닫으면서 이전 요소 보냄, cancel() 은 닫으면서 이전 요소 안보내고 삭제 // send() 는 suspend고 반환이 Unit 이며, 채널이 꽉차면 빌때까지 대기, offer() 는 일반 함수고 반환이 불리언이며, 꽉차면 대기하지 않음//   
+receive() 은 send()의 반대버전 채널이 비면 일시 중단, poll()은 offer()의 반대버전 채널이 비거나 닫혀있으면 close cause exception 리턴
 
 
 ###### 안드로이드 코루틴 권장 방식    
