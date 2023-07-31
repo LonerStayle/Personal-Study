@@ -9,14 +9,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun HandlerSendMsgBtn() {
     val context = LocalContext.current
     val mainHandler = Handler(Looper.getMainLooper())
+    rememberCoroutineScope{Dispatchers.IO}
     Button(modifier = Modifier.padding(top = 8.dp), onClick = {
         Thread{
             /**prepare() 를 하지 않으면 myLooper가 Null임 */
@@ -29,6 +33,8 @@ fun HandlerSendMsgBtn() {
             mockHandler.sendMessage(msg)
             /**loop 는 이전에 작성한 sendMsg를 다른 핸들러에 보냄*/
             Looper.loop()
+
+
         }.start()
     }) {
         Text(text = "메인 핸들러 테스트")
@@ -43,9 +49,7 @@ fun WorkerHandlerSendMsgBtn() {
             Looper.prepare()
             val mockHandler = MockHandler(Looper.myLooper()!!)
 
-            val msg = Message.obtain(mockHandler) {
-                //UI 관련 일이 아닌 작업
-            }
+            val msg = Message.obtain(mockHandler,0,2,3,4)
             mockHandler.sendMessage(msg)
             /**loop 는 이전에 작성한 sendMsg를 다른 핸들러에 보냄*/
             Looper.loop()
