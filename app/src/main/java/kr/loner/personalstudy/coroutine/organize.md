@@ -65,7 +65,8 @@
 
 - Channel 함수들 -> close() 는 닫으면서 이전 요소 보냄, cancel() 은 닫으면서 이전 요소 안보내고 삭제 // send() 는 suspend고 반환이 Unit 이며, 채널이 꽉차면 빌때까지 대기, offer() 는 일반 함수고 반환이 불리언이며, 꽉차면 대기하지 않음//   
 receive() 은 send()의 반대버전 채널이 비면 일시 중단, poll()은 offer()의 반대버전 채널이 비거나 닫혀있으면 close cause exception 리턴
-
+- flow 대신 SharedFlow 를 쓰는 이유는 구성변경과 관련이 있다. flow는 collect 를 셋팅할 때마다 이전 emit을 전부다 실행하는 단점이 있다.
+- flow{ emit(..) } 은 내부에서만 가능하고 Hot Stream 인 ShareFlow는 빌더 외부에서 emit(..) 이 가능하다. 
 
 ###### 안드로이드 코루틴 권장 방식    
 [안드로이드 코루틴 권장 코드 공식 문서](https://developer.android.com/kotlin/coroutines/coroutines-best-practices#inject-dispatchers)   

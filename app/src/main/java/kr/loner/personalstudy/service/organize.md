@@ -16,9 +16,9 @@
 - 기본적으로 서비스 보다 Intent Service 로 onHandleIntent() 를 사용해서 서비스를 이용하는 것이 불필요한 라이프 사이클 작업 처리가 필요 없긴 하다.  
 - 안드로이드 12 부터 백그라운드 서비스에서 포그라운드 서비스로 승격하는 것에 제한이 생겼다.  
 - stopSelf(startId:Int) 를 사용해서 onStartCommend() 에서 어떤 시작인가에 따라 중지할 수 있다.
-- START_STICKY 는 서비스가 강제로 종료되었을 때 자동으로 다시 시작하는 방식,onStartCommand()가 호출되지만 Intent는 Null   
-- START_REDELIVER_INTENT 는 서비스가 강제로 종료되었을 때 자동으로 다시 시작하는 방식이면서 Intent 는 not null   
-- START_NOT_STICKY 는 서비스가 강제로 종료되었을 때 자동으로 다시 시작하지 않는 방식 (전달할 Pending Intent가 있는 경우는 예외)  
+- START_STICKY 는 OS에 의해 서비스가 강제로 종료되었을 때 자동으로 다시 시작하는 방식,onStartCommand()가 호출되지만 Intent는 Null   
+- START_REDELIVER_INTENT 는 OS에 의해 서비스가 강제로 종료되었을 때 자동으로 다시 시작하는 방식이면서 Intent 는 not null   
+- START_NOT_STICKY 는 OS에 의해 서비스가 강제로 종료되었을 때 자동으로 다시 시작하지 않는 방식 (전달할 Pending Intent가 있는 경우는 예외)  
 - START_STICKY 와 START_REDELIVER_INTENT 는 백그라운드 서비스 일경우 안드로이드 8.0 부터 다시 살아나는 제한이 좀 있음   
 - 암시적 서비스는 안드로이드 SDK 21 부터 제한이 있음   
 - 포그라운드 서비스를 실행하면 시스템 리소스를 많이 소모하여, 낮은 우선순위 알림을 사용해 서비스를 숨기려 하면 성능 저해가 일어날 수 있음   
